@@ -11,7 +11,7 @@ CREATE TABLE `gardening_manuals`.`users` (
 
 INSERT INTO `gardening_manuals`.`users` VALUES 
 	(12345, 'sriley@robogarden.ca', 'testpass89334', 'sriley'),
-	(12346, 'glliala@robogardplant_categoriesplant_categoriesen.ca', 'wieruwoeirue', 'glliala'),
+	(12346, 'glliala@robogarden.ca', 'wieruwoeirue', 'glliala'),
 	(12347, 'rbenet@robogarden.ca', 'weroewreq343', 'rbenet'),
 	(12348, 'morsharshy@robogarden.ca', '23oq2u9ue', 'morsharshy');
 
@@ -20,7 +20,17 @@ CREATE TABLE `gardening_manuals`.`plant_categories` (
 	`plant_category_ID` INT NOT NULL AUTO_INCREMENT,
 	`plant_category_name` VARCHAR(50) NOT NULL DEFAULT '',
 	 PRIMARY KEY (`plant_category_ID`));	
-	 
+
+INSERT INTO `gardening_manuals`.`plant_categories` VALUES 
+	(98090, 'vegetables'),
+	(98091, 'fruits'),
+	(98092, 'herbs'),
+	(98093, 'cacti and succulents'),
+	(98094, 'house plants'),
+	(98095, 'shrubs'),
+	(98096, 'ferns'),
+	(98097, 'flowers'),
+	(98098, 'trees');
 
 -- make the table that holds the plant information --
 CREATE TABLE `gardening_manuals`.`plant_info` (
@@ -43,32 +53,17 @@ CREATE TABLE `gardening_manuals`.`plant_info` (
 -- ? ERROR:"Foreign key constraint is incorrectly formed"  --
 ALTER TABLE gardening_manuals.plant_info
 	ADD CONSTRAINT FOREIGN KEY (plant_category_ID) REFERENCES plant_categories(plant_category_ID);
-   
 
+ 
+-- create a table to store plants favourited by users
+CREATE TABLE `gardening_manuals`.`user_faves` (
+	`user_id` INT NOT NULL AUTO_INCREMENT,
+	`plant_id` INT NOT NULL,
+	PRIMARY KEY  (`user_id`)
+	);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- change the plant_id column to be a foreign key in the users_faves table which references the plant_id in the plant_info table
+ALTER TABLE `gardening_manuals`.`user_faves`
+	ADD CONSTRAINT FOREIGN KEY (`plant_id`) REFERENCES `plant_info` (`plant_id`); 
+	
 
