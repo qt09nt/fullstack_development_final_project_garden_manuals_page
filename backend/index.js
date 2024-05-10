@@ -27,6 +27,21 @@ app.get('/', function(req, res){
 });
 
 //get all plant info entries
+app.get('/plant_info/', async(request, response)=>{
+    //get the connection
+    const connection = await pool.getConnection();
+    try {
+        //return the query result
+        const result = await connection.query('SELECT * FROM gardening_manuals.plant_info');
+        response.status(200).json({
+            users: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+});
+
+//get all users info entries
 app.get('/users/', async(request, response)=>{
     //get the connection
     const connection = await pool.getConnection();
@@ -40,6 +55,95 @@ app.get('/users/', async(request, response)=>{
         response.send(500).send(error);
     }
 });
+
+
+//get all plant categories info entries
+app.get('/plant_categories/', async(request, response)=>{
+    //get the connection
+    const connection = await pool.getConnection();
+    try {
+        //return the query result
+        const result = await connection.query('SELECT * FROM gardening_manuals.plant_categories');
+        response.status(200).json({
+            users: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+});
+
+//get all user favourites info entries
+app.get('/user_faves/', async(request, response)=>{
+    //get the connection
+    const connection = await pool.getConnection();
+    try {
+        //return the query result
+        const result = await connection.query('SELECT * FROM gardening_manuals.user_faves');
+        response.status(200).json({
+            users: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+});
+
+app.get('/users/:id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const id = request.params.id;
+    try {
+        const result = await connection.query(`
+        SELECT * 
+        FROM gardening_manuals.users
+        WHERE user_id = ?`, id);
+        response.status(200).json({
+            users: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+
+});
+
+app.get('/plant_info/:id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const id = request.params.id;
+    try {
+        const result = await connection.query(`
+        SELECT * 
+        FROM gardening_manuals.plant_info
+        WHERE plant_id = ?`, id);
+        response.status(200).json({
+            plant_info: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+
+});
+
+
+
+app.get('/plant_categories/:id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const id = request.params.id;
+    try {
+        const result = await connection.query(`
+        SELECT * 
+        FROM gardening_manuals.plant_categories
+        WHERE plant_category_ID = ?`, id);
+        response.status(200).json({
+            plant_categories: result,
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    }
+});
+
+
+
+
+
+
 
 
 //create the web server
