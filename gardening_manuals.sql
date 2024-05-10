@@ -91,5 +91,16 @@ INSERT INTO `gardening_manuals`.`user_faves` VALUES
 	(12348, 789),
 	(12347, 789);
 	
-	
-	
+
+USE gardening_manuals;
+SHOW TABLES;
+
+-- show the contents of the plant_categories table
+SELECT * FROM gardening_manuals.`plant_categories`;	
+
+SELECT * FROM gardening_manuals.`plant_info`;
+
+SELECT * FROM gardening_manuals.`users`;
+
+SELECT * FROM gardening_manuals.`user_faves`;
+
