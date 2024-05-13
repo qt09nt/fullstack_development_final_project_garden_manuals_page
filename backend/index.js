@@ -1,8 +1,9 @@
 const express = require('express'); //importing the express package
 const app = express(); //create a web application
-
 const pool = require('./connection');
 const cors = require('cors');
+
+app.use(cors()); //will grant or allow access from the frontend
 
 ///this middleware gets executed whenever there is a call or request//
 //it's the first thing getting executed since it's at the top
