@@ -9,6 +9,7 @@ import { Iplantcategories } from '../../interfaces/iplantcategories';
 })
 export class PlantsComponent {
 
+  //! used to silence the error message
   plantCategories!: Iplantcategories[];
 
   constructor(private plantCategoriesService: PlantCategoriesService ){

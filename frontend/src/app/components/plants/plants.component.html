@@ -1,2 +1,13 @@
+<table class="table table-striped">
+    <tr>
+        <th>Plant Category ID</th>
+        <th>Plant Category Name</th>
+    </tr>
 
+    <tr *ngFor="let plant of plantCategories">
+        <td>{{ plant.plant_category_ID }}</td>
+        <td>{{ plant.plant_category_name }}</td>
+    </tr>
+</table>
 <p>plants works!</p>
+
