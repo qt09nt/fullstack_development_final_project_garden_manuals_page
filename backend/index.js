@@ -140,8 +140,52 @@ app.get('/plant_categories/:id', async (request, response) => {
     }
 });
 
+app.post('/users/', async (request, response) => {
+    const connection = await pool.getConnection();
+    const { email, username } = request.body;
+
+    if(!email || !username  ) return response.status(500).send('Please provide both username and email');
+
+    try {
+        const result = await connection.query(`
+        INSERT INTO gardening_manuals.users (email, username)
+        VALUES (?, ?)`, [email, username]);
+        return response.status(200).send(`Rows inserted ${result.affectedRows}`);
+
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error);
+    }
+});
 
 
+
+app.post('/plant_info/', async (request, response) => {
+    const connection = await pool.getConnection();
+    const { plant_id, plant_name } = request.body;
+
+    if(!plant_id || !plant_name  ) return response.status(500).send('Please provide both plant name and plant_id');
+
+    try {
+        const result = await connection.query(`
+        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name)
+        VALUES (?, ?)`, [plant_id, plant_name]);
+        return response.status(200).send(`Rows inserted ${result.affectedRows}`);
+
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error);
+    }
+});
+
+// sqlMessage: "Field 'plant_category_ID' doesn't have a default value",
+//   sql: '\n' +
+//     '        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name)\n' +      
+//     "        VALUES (?, ?) - parameters:['804','orchid']",
+//   fatal: false,
+//   errno: 1364,
+//   sqlState: 'HY000',
+//   code: 'ER_NO_DEFAULT_FOR_FIELD'
 
 
 
