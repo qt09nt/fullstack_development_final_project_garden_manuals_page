@@ -162,14 +162,14 @@ app.post('/users/', async (request, response) => {
 
 app.post('/plant_info/', async (request, response) => {
     const connection = await pool.getConnection();
-    const { plant_id, plant_name } = request.body;
+    const { plant_id, plant_name, plant_category_ID } = request.body;
 
-    if(!plant_id || !plant_name  ) return response.status(500).send('Please provide both plant name and plant_id');
+    if(!plant_id || !plant_name || !plant_category_ID  ) return response.status(500).send('Please provide both plant name and plant_id, plant category ID');
 
     try {
         const result = await connection.query(`
-        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name)
-        VALUES (?, ?)`, [plant_id, plant_name]);
+        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name, plant_category_ID)
+        VALUES (?, ?, ?)`, [plant_id, plant_name, plant_category_ID]);
         return response.status(200).send(`Rows inserted ${result.affectedRows}`);
 
     } catch (error) {
@@ -178,14 +178,7 @@ app.post('/plant_info/', async (request, response) => {
     }
 });
 
-// sqlMessage: "Field 'plant_category_ID' doesn't have a default value",
-//   sql: '\n' +
-//     '        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name)\n' +      
-//     "        VALUES (?, ?) - parameters:['804','orchid']",
-//   fatal: false,
-//   errno: 1364,
-//   sqlState: 'HY000',
-//   code: 'ER_NO_DEFAULT_FOR_FIELD'
+
 
 
 
