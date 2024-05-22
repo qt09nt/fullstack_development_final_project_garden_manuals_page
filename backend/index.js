@@ -162,14 +162,14 @@ app.post('/users/', async (request, response) => {
 
 app.post('/plant_info/', async (request, response) => {
     const connection = await pool.getConnection();
-    const { plant_id, plant_name, plant_category_ID } = request.body;
+    const { plant_name, plant_category_ID } = request.body;
 
-    if(!plant_id || !plant_name || !plant_category_ID  ) return response.status(500).send('Please provide both plant name and plant_id, plant category ID');
+    if(!plant_name || !plant_category_ID  ) return response.status(500).send('Please provide both plant name and plant category ID');
 
     try {
         const result = await connection.query(`
-        INSERT INTO gardening_manuals.plant_info (plant_id, plant_name, plant_category_ID)
-        VALUES (?, ?, ?)`, [plant_id, plant_name, plant_category_ID]);
+        INSERT INTO gardening_manuals.plant_info (plant_name, plant_category_ID)
+        VALUES (?, ?)`, [plant_name, plant_category_ID]);
         return response.status(200).send(`Rows inserted ${result.affectedRows}`);
 
     } catch (error) {
@@ -178,6 +178,62 @@ app.post('/plant_info/', async (request, response) => {
     }
 });
 
+app.post('/plant_categories/', async (request, response) => {
+    const connection = await pool.getConnection();
+    const { plant_category_ID, plant_category_name } = request.body;
+
+    if(!plant_category_ID || !plant_category_name ) return response.status(500).send('Please provide both plant category name and plant category ID');
+
+    try {
+        const result = await connection.query(`
+        INSERT INTO gardening_manuals.plant_categories (plant_category_ID, plant_category_name)
+        VALUES (?, ?)`, [plant_category_ID, plant_category_name]);
+        return response.status(200).send(`Rows inserted ${result.affectedRows}`);
+
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error);
+    }
+});
+
+app.post('/user_faves/', async (request, response) => {
+    const connection = await pool.getConnection();
+    const { user_id, plant_id } = request.body;
+
+    if(!plant_id || !user_id ) return response.status(500).send('Please provide both plant ID and user ID');
+
+    try {
+        const result = await connection.query(`
+        INSERT INTO gardening_manuals.user_faves (user_id, plant_id)
+        VALUES (?, ?)`, [user_id, plant_id]);
+        return response.status(200).send(`Rows inserted ${result.affectedRows}`);
+
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error);
+    }
+});
+
+//Update users
+app.put('/users/:user_id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const user_id = request.params.id;
+    const username = request.body.name;
+    
+    if(!username) return response.status(500).send('Please provide a username to update');
+
+    try{
+        const result = await connection.query(`
+        UPDATE gardening_manuals.users
+        SET username = ?
+        WHERE user_id = ?`, [username, user_id]);
+        return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error.toString());
+    }
+
+});
 
 
 
