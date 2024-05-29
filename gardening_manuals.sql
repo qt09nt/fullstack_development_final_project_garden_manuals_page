@@ -70,7 +70,7 @@ ALTER TABLE gardening_manuals.plant_info
 	ADD CONSTRAINT FOREIGN KEY (plant_category_ID) REFERENCES plant_categories(plant_category_ID);
 
  
--- create a table to store plants favourited by users
+-- plant_categoriescreate a table to store plants favourited by users
 CREATE TABLE `gardening_manuals`.`user_faves` (
 	`user_id` INT NOT NULL,
 	`plant_id` INT NOT NULL
@@ -92,15 +92,11 @@ INSERT INTO `gardening_manuals`.`user_faves` VALUES
 	(12347, 789);
 	
 
-USE gardening_manuals;
-SHOW TABLES;
-
 -- show the contents of the plant_categories table
+SELECT * FROM gardening_manuals.`users`;
+
 SELECT * FROM gardening_manuals.`plant_categories`;	
 
 SELECT * FROM gardening_manuals.`plant_info`;
 
-SELECT * FROM gardening_manuals.`users`;
-
 SELECT * FROM gardening_manuals.`user_faves`;
-

@@ -48,7 +48,7 @@ app.get('/users/', async(request, response)=>{
     const connection = await pool.getConnection();
     try {
         //return the query result
-        const result = await connection.query('SELECT * FROM gardening_manuals.users');
+        const result = await connection.query('SELECT user_id, email, username FROM gardening_manuals.users');
         response.status(200).json({
             users: result,
         });
@@ -96,11 +96,15 @@ app.get('/users/:id', async (request, response) => {
         SELECT * 
         FROM gardening_manuals.users
         WHERE user_id = ?`, id);
-        response.status(200).json({
+
+        if (result.length == 0){
+            return response.status(500).json("User not found");
+        }
+        return response.status(200).json({
             users: result,
         });
     } catch (error) {
-        response.send(500).send(error);
+        response.status(500).json(error);
     }
 
 });
@@ -198,14 +202,14 @@ app.post('/plant_info/', async (request, response) => {
 
 app.post('/plant_categories/', async (request, response) => {
     const connection = await pool.getConnection();
-    const { plant_category_ID, plant_category_name } = request.body;
+    const { plant_category_name } = request.body;
 
-    if(!plant_category_ID || !plant_category_name ) return response.status(500).send('Please provide both plant category name and plant category ID');
+    if(!plant_category_name ) return response.status(500).send('Please provide both and plant category ID');
 
     try {
         const result = await connection.query(`
-        INSERT INTO gardening_manuals.plant_categories (plant_category_ID, plant_category_name)
-        VALUES (?, ?)`, [plant_category_ID, plant_category_name]);
+        INSERT INTO gardening_manuals.plant_categories ( plant_category_name)
+        VALUES ( ?)`, [plant_category_name]);
         return response.status(200).send(`Rows inserted ${result.affectedRows}`);
 
     } catch (error) {
@@ -235,25 +239,25 @@ app.post('/user_faves/', async (request, response) => {
 });
 
 //Update users username
-app.patch('/users/:user_id', async (request, response) => {
-    const connection = await pool.getConnection();
-    const user_id = request.params.user_id;
-    const username = request.body.username;
+// app.patch('/users/:user_id', async (request, response) => {
+//     const connection = await pool.getConnection();
+//     const user_id = request.params.user_id;
+//     const username = request.body.username;
     
-    if(!username) return response.status(500).send('Please provide a username to update');
+//     if(!username) return response.status(500).send('Please provide a username to update');
 
-    try{
-        const result = await connection.query(`
-        UPDATE gardening_manuals.users
-        SET username = ?
-        WHERE user_id = ?`, [username, user_id]);
-        return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
-    } catch (error) {
-        console.log(error);
-        return response.status(500).send(error.toString());
-    }
+//     try{
+//         const result = await connection.query(`
+//         UPDATE gardening_manuals.users
+//         SET username = ?
+//         WHERE user_id = ?`, [username, user_id]);
+//         return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
+//     } catch (error) {
+//         console.log(error);
+//         return response.status(500).send(error.toString());
+//     }
 
-});
+// });
 
 //update users email
 app.patch('/users/username/:username', async (request, response) => {
@@ -267,7 +271,8 @@ app.patch('/users/username/:username', async (request, response) => {
         const result = await connection.query(`
         UPDATE gardening_manuals.users
         SET email = ?
-        WHERE username = ?`, [username, email]);
+        WHERE username = ?
+        `, [username, email]);
         return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
     } catch (error) {
         console.log(error);
@@ -298,6 +303,11 @@ app.delete('/plant_info/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;    
     
+//alter table users add a new column is_deleted the default value for this user is 0
+// We will update that column here in this request
+// which will be an update query instead of delete
+//update users set is_deleted = 1 where user_id = id provided in the request
+
     try{
         const result = await connection.query(`
         DELETE FROM gardening_manuals.plant_info
