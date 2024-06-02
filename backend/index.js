@@ -164,14 +164,18 @@ app.get('/plant_categories/:id', async (request, response) => {
 //add a new user 
 app.post('/users/', async (request, response) => {
     const connection = await pool.getConnection();
-    const { email, username } = request.body;
+    const { email, username, password } = request.body;
 
-    if(!email || !username  ) return response.status(500).send('Please provide both username and email');
+    if(!email ) return response.status(500).send('Please provide an email');
 
+    if(!username ) return response.status(500).send('Please provide a username');
+
+    if(!password) return response.status(500).send('Please provide a password');
+    
     try {
         const result = await connection.query(`
-        INSERT INTO gardening_manuals.users (email, username)
-        VALUES (?, ?)`, [email, username]);
+        INSERT INTO gardening_manuals.users (email, username, password)
+        VALUES (?, ?, ?)`, [email, username, password]);
         return response.status(200).send(`Rows inserted ${result.affectedRows}`);
 
     } catch (error) {
@@ -238,26 +242,25 @@ app.post('/user_faves/', async (request, response) => {
     }
 });
 
-//Update users username
-// app.patch('/users/:user_id', async (request, response) => {
-//     const connection = await pool.getConnection();
-//     const user_id = request.params.user_id;
-//     const username = request.body.username;
+//Update users table password by username
+app.patch('/users/:username', async (request, response) => {
+    const connection = await pool.getConnection();
+    const username = request.body.username;
     
-//     if(!username) return response.status(500).send('Please provide a username to update');
+    if(!username) return response.status(500).send('Please provide a username to update password');
 
-//     try{
-//         const result = await connection.query(`
-//         UPDATE gardening_manuals.users
-//         SET username = ?
-//         WHERE user_id = ?`, [username, user_id]);
-//         return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
-//     } catch (error) {
-//         console.log(error);
-//         return response.status(500).send(error.toString());
-//     }
+    try{
+        const result = await connection.query(`
+        UPDATE gardening_manuals.users
+        SET password = ?
+        WHERE username = ?`, [password, username]);
+        return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error.toString());
+    }
 
-// });
+});
 
 //update users email
 app.patch('/users/username/:username', async (request, response) => {
