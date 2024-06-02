@@ -6,7 +6,7 @@ CREATE TABLE `gardening_manuals`.`users` (
 	`email` VARCHAR(50) NOT NULL DEFAULT '',
 	`password` VARCHAR(50) NOT NULL DEFAULT '',
 	`username` VARCHAR(50) NOT NULL DEFAULT '',
-	 PRIMARY KEY  (`user_id`),
+	 PRIMARY KEY  (`user_id`)
 );
 
 -- make the plant categories table
