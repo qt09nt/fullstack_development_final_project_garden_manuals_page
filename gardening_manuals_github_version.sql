@@ -10,6 +10,9 @@ CREATE TABLE `gardening_manuals`.`users` (
 	 CONSTRAINT UNIQUE(`user_id`, `username`, `password`) 
 );
 
+-- change the max length of the users table password column to 100 characters	
+ALTER TABLE gardening_manuals.users MODIFY COLUMN `password` VARCHAR (100) NOT NULL; 
+
 -- make the plant categories table
 CREATE TABLE `gardening_manuals`.`plant_categories` (
 	`plant_category_ID` INT NOT NULL AUTO_INCREMENT,
