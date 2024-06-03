@@ -48,7 +48,7 @@ app.get('/users/', async(request, response)=>{
     const connection = await pool.getConnection();
     try {
         //return the query result
-        const result = await connection.query('SELECT user_id, email, username FROM gardening_manuals.users');
+        const result = await connection.query('SELECT user_id, email, username FROM gardening_manuals.users WHERE is_deleted = 0');
         response.status(200).json({
             users: result,
         });
@@ -88,14 +88,40 @@ app.get('/user_faves/', async(request, response)=>{
     }
 });
 
+//get the users info using user_id
 app.get('/users/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;
+      
     try {
         const result = await connection.query(`
         SELECT * 
         FROM gardening_manuals.users
-        WHERE user_id = ?`, id);
+        WHERE user_id = ?`, id);        
+
+        // check that id is a number only and not any other data type
+        //problem is that const id = string from what is retrieved from the id part in the url
+        if (typeof (id) != "number") {   
+            return response.status(500).json("User id must be a number");
+        }
+        //ERROR: since id is a string, it will always be false, and the error message "User id must be a number" is always
+        //shown even when it's a valid ID
+
+    
+        //when you use the Number() constructor to explicitly typecast a string that holds a number
+        // to a number or even a value like an actual string that cannot be typecasted to an integer, 
+        //it will always return a number as its data type:
+        // if (typeof Number(id) != "number"){
+        //    return response.status(500).json("User id must be a number");
+        // }
+        // ERROR: id is always converted to number so the error message will not show up even when it's
+        // a string id
+        
+        if (typeof ParseInt(id) != "number") {   
+            return response.status(500).json("User id must be a number");
+        }
+        //ERROR: always returns "{}" even if it's a valid user_id
+        // returns "{}" even if id is a random string
 
         if (result.length == 0){
             return response.status(500).json("User not found");
@@ -118,8 +144,14 @@ app.get('/plant_info/:id', async (request, response) => {
         SELECT * 
         FROM gardening_manuals.plant_info
         WHERE plant_id = ?`, id);
+
+        if (result.length == 0){
+            return response.status(500).json("Plant id not found");
+        }
+
         response.status(200).json({
             plant_info: result,
+            
         });
     } catch (error) {
         response.send(500).send(error);
@@ -130,11 +162,22 @@ app.get('/plant_info/:id', async (request, response) => {
 app.get('/user_faves/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;
+
+    // // // check that id is a number only and not any other data type
+    // if (typeof(id) != typeof(12345)){
+
+    //     return response.status(500).json("user_id must be a number");
+    // } 
+
     try {
         const result = await connection.query(`
         SELECT * 
         FROM gardening_manuals.user_faves
         WHERE user_id = ?`, id);
+
+        if (result.length == 0){
+            return response.status(500).json("user id not found");
+        }
         response.status(200).json({
             user_faves: result,
         });
@@ -172,6 +215,8 @@ app.post('/users/', async (request, response) => {
 
     if(!password) return response.status(500).send('Please provide a password');
     
+    if (length.password === 0) return response.status(500).send('Password can not be empty');
+
     try {
         const result = await connection.query(`
         INSERT INTO gardening_manuals.users (email, username, password)
@@ -204,12 +249,13 @@ app.post('/plant_info/', async (request, response) => {
     }
 });
 
+//add a new plant category
 app.post('/plant_categories/', async (request, response) => {
     const connection = await pool.getConnection();
     const { plant_category_name } = request.body;
 
-    if(!plant_category_name ) return response.status(500).send('Please provide both and plant category ID');
-
+    if(!plant_category_name ) return response.status(500).send('Please provide a plant category name');
+    if(typeof(plant_category_name) == "number") return response.status(500).send("Plant category name should be a string not a number")
     try {
         const result = await connection.query(`
         INSERT INTO gardening_manuals.plant_categories ( plant_category_name)
@@ -223,7 +269,6 @@ app.post('/plant_categories/', async (request, response) => {
 });
 
 //add new user fave
-///ERROR: Cannot POST /users_faves/</pre>
 app.post('/user_faves/', async (request, response) => {
     const connection = await pool.getConnection();
     const { user_id, plant_id } = request.body;
@@ -267,15 +312,18 @@ app.patch('/users/username/:username', async (request, response) => {
     const connection = await pool.getConnection();
     const username = request.params.username;
     const email = request.body.email;
-    
+    const password = request.body.password;
+
     if(!username) return response.status(500).send('Please provide a username to update email');
+    if(!password) return response.status(500).send('Please provide a password to update email');
 
     try{
         const result = await connection.query(`
+        WHERE NOT EXISTS (SELECT * FROM gardening_manuals.users WHERE users.email = email)
         UPDATE gardening_manuals.users
         SET email = ?
         WHERE username = ?
-        `, [username, email]);
+        AND is_deleted = 0`, [username, email] );   //is_deleted = 0 means look only at active users account, not deleted ones
         return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
     } catch (error) {
         console.log(error);
@@ -284,15 +332,27 @@ app.patch('/users/username/:username', async (request, response) => {
 
 });
 
-//DELETE user by user_id
-app.delete('/users/:id', async (request, response) => {
+
+//Soft DELETE user by user_id in the is_deleted column of users table
+app.patch('/users/delete/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;    
-    
+    const is_deleted = request.body.is_deleted; 
+
     try{
+        // const result = await connection.query(`
+        // DELETE FROM gardening_manuals.users
+        // WHERE user_id = ?`, id);
         const result = await connection.query(`
-        DELETE FROM gardening_manuals.users
-        WHERE user_id = ?`, id);
+        UPDATE gardening_manuals.users
+        SET is_deleted = ?
+        WHERE user_id = ?`,
+        [is_deleted, id]);
+
+        //check if user_id exists
+        if (result.length == 0){
+            return response.status(500).json("User not found");
+        }
         return response.status(200).send(`Number of records deleted = ${result.affectedRows}`);
     } catch (error) {
         console.log(error);
@@ -301,7 +361,7 @@ app.delete('/users/:id', async (request, response) => {
 
 });
 
-//DELETE plant entry by plant_id
+//soft DELETE plant entry by plant_id
 app.delete('/plant_info/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;    
@@ -315,6 +375,23 @@ app.delete('/plant_info/:id', async (request, response) => {
         const result = await connection.query(`
         DELETE FROM gardening_manuals.plant_info
         WHERE plant_id = ?`, id);
+        return response.status(200).send(`Number of records deleted = ${result.affectedRows}`);
+    } catch (error) {
+        console.log(error);
+        return response.status(500).send(error.toString());
+    }
+
+});
+
+//Delete plant category by plant_category_id
+app.delete('/plant_categories/:id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const id = request.params.id;    
+    
+    try{
+        const result = await connection.query(`
+        DELETE FROM gardening_manuals.plant_categories
+        WHERE plant_category_ID = ?`, id);
         return response.status(200).send(`Number of records deleted = ${result.affectedRows}`);
     } catch (error) {
         console.log(error);
