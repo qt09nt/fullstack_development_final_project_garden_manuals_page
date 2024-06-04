@@ -3,6 +3,8 @@ const app = express(); //create a web application
 const pool = require('./connection');
 const cors = require('cors');
 
+app.use(express.json());
+
 app.use(cors()); //will grant or allow access from the frontend
 
 ///this middleware gets executed whenever there is a call or request//
@@ -91,17 +93,12 @@ app.get('/user_faves/', async(request, response)=>{
 //get the users info using user_id
 app.get('/users/:id', async (request, response) => {
     const connection = await pool.getConnection();
-    const id = request.params.id;
-      
-    try {
-        const result = await connection.query(`
-        SELECT * 
-        FROM gardening_manuals.users
-        WHERE user_id = ?`, id);        
-
-        // check that id is a number only and not any other data type
+    const id = parseInt(request.params.id);
+    // check that id is a number only and not any other data type
         //problem is that const id = string from what is retrieved from the id part in the url
-        if (typeof (id) != "number") {   
+        if (typeof id != "number") {   
+            return response.status(500).json("User id must be a number");
+        } else if(isNaN(id)){
             return response.status(500).json("User id must be a number");
         }
         //ERROR: since id is a string, it will always be false, and the error message "User id must be a number" is always
@@ -117,12 +114,16 @@ app.get('/users/:id', async (request, response) => {
         // ERROR: id is always converted to number so the error message will not show up even when it's
         // a string id
         
-        if (typeof ParseInt(id) != "number") {   
-            return response.status(500).json("User id must be a number");
-        }
         //ERROR: always returns "{}" even if it's a valid user_id
         // returns "{}" even if id is a random string
 
+    try {
+        const result = await connection.query(`
+        SELECT * 
+        FROM gardening_manuals.users
+        WHERE user_id = ?`, id);        
+
+        
         if (result.length == 0){
             return response.status(500).json("User not found");
         }
@@ -288,12 +289,13 @@ app.post('/user_faves/', async (request, response) => {
 });
 
 //Update users table password by username
-app.patch('/users/:username', async (request, response) => {
+app.patch('/users/change_password/:username', async (request, response) => {
     const connection = await pool.getConnection();
     const username = request.body.username;
-    
-    if(!username) return response.status(500).send('Please provide a username to update password');
+    const password = request.body.password;
 
+    if(!username) return response.status(500).send('Please provide a username to update password');
+    
     try{
         const result = await connection.query(`
         UPDATE gardening_manuals.users
@@ -308,18 +310,32 @@ app.patch('/users/:username', async (request, response) => {
 });
 
 //update users email
-app.patch('/users/username/:username', async (request, response) => {
+app.patch('/users/username/update_email/:username', async (request, response) => {
     const connection = await pool.getConnection();
     const username = request.params.username;
     const email = request.body.email;
     const password = request.body.password;
 
     if(!username) return response.status(500).send('Please provide a username to update email');
+    
     if(!password) return response.status(500).send('Please provide a password to update email');
+//new parameter in the request for new email 
+    //write a select query to get email and password from the database
+    
+    // try {
+    //     const result = await connection.query(`
+    //     SELECT email, password FROM gardening_manuals.users WHERE email = email AND 
+    //     WHERE password = password
+    //     `)
+    // }
+    
+    // SELECT * FROM gardening_manuals.users WHERE email = email
+    //compare the password with the password provided in the api
+    // add in the database for the email to be unique
 
+    //if the password matches write an update query to update the email;
     try{
-        const result = await connection.query(`
-        WHERE NOT EXISTS (SELECT * FROM gardening_manuals.users WHERE users.email = email)
+        const result = await connection.query(`      
         UPDATE gardening_manuals.users
         SET email = ?
         WHERE username = ?
@@ -418,7 +434,35 @@ app.delete('/user_faves/:id', async (request, response) => {
 
 });
 
+//register user
+app.post('/register/', async (request, response) =>{
+    const {username, password, confirm_password} = request.body;
+    // const username = request.body.username;
+    // const password = request.body.password;
+    // const confirm_password = request.body;
 
+    if (!username || !password || !confirm_password) response.status(500).json('All fields are required');
+    
+    if(password != confirm_password) response.status(500).json('Password does not match with confirm password')
+
+    const connection = await pool.getConnection();
+
+    try {
+        const result = connection.query(`INSERT INTO gardening_manuals.users (username, password)
+                                                VALUES ? , ? `, [username, password]);
+    } catch(error){
+
+    }
+
+    //get the database connection
+    //insert values in database
+    //encrypt the password
+
+})
+
+app.post('/login/', async (request, response) =>{
+
+})
 
 
 

@@ -7,14 +7,24 @@ CREATE TABLE `gardening_manuals`.`users` (
 	`password` VARCHAR(50) NOT NULL DEFAULT '',
 	`username` VARCHAR(50) NOT NULL DEFAULT '',
 	 PRIMARY KEY  (`user_id`),
+	 CONSTRAINT UNIQUE(`user_id`, `username`, `password`) 
 );
-
+	
 INSERT INTO `gardening_manuals`.`users` VALUES 
 	(12345, 'sriley@robogarden.ca', 'testpass89334', 'sriley'),
 	(12346, 'glliala@robogarden.ca', 'wieruwoeirue', 'glliala'),
 	(12347, 'rbenet@robogarden.ca', 'weroewreq343', 'rbenet'),
-	(12348, 'morsharshy@robogarden.ca', '23oq2u9ue', 'morsharshy');
+	(12348, 'morsharshy@robogarden.ca', '23oq2u9ue', 'morshashy');
 
+ALTER TABLE gardening_manuals.users 
+	ADD deleted_or_not INT NOT NULL;
+
+ALTER TABLE gardening_manuals.users RENAME COLUMN deleted_or_not TO is_deleted;
+
+-- change the max length of the users table password column to 100 characters	
+ALTER TABLE gardening_manuals.users MODIFY COLUMN `password` VARCHAR (100) NOT NULL; 
+	
+	
 -- make the plant categories table
 CREATE TABLE `gardening_manuals`.`plant_categories` (
 	`plant_category_ID` INT NOT NULL AUTO_INCREMENT,
@@ -83,14 +93,14 @@ ALTER TABLE `gardening_manuals`.`user_faves`
 ALTER TABLE `gardening_manuals`.`user_faves`
 	ADD CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`); 
 	
-
+users
 INSERT INTO `gardening_manuals`.`user_faves` VALUES
 	(12345, 790),
 	(12345, 791),
 	(12346, 791),
 	(12348, 789),
 	(12347, 789);
-	
+
 
 -- show the contents of the plant_categories table
 SELECT * FROM gardening_manuals.`users`;
@@ -100,3 +110,5 @@ SELECT * FROM gardening_manuals.`plant_categories`;
 SELECT * FROM gardening_manuals.`plant_info`;
 
 SELECT * FROM gardening_manuals.`user_faves`;
+
+show create table table_name_here
