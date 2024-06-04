@@ -331,7 +331,11 @@ app.patch('/users/username/update_email/:username', async (request, response) =>
     
     // SELECT * FROM gardening_manuals.users WHERE email = email
     //compare the password with the password provided in the api
-    // add in the database for the email to be unique
+    // if (password == users.password ) {
+
+    //}
+
+    // // add in the database for the email to be unique
 
     //if the password matches write an update query to update the email;
     try{
@@ -355,6 +359,11 @@ app.patch('/users/delete/:id', async (request, response) => {
     const id = request.params.id;    
     const is_deleted = request.body.is_deleted; 
 
+     //check if user_id exists
+     if (result.length == 0){
+        return response.status(500).json("User not found");
+    }
+
     try{
         // const result = await connection.query(`
         // DELETE FROM gardening_manuals.users
@@ -365,10 +374,7 @@ app.patch('/users/delete/:id', async (request, response) => {
         WHERE user_id = ?`,
         [is_deleted, id]);
 
-        //check if user_id exists
-        if (result.length == 0){
-            return response.status(500).json("User not found");
-        }
+       
         return response.status(200).send(`Number of records deleted = ${result.affectedRows}`);
     } catch (error) {
         console.log(error);
