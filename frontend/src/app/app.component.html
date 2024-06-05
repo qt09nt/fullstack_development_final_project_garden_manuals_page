@@ -4,3 +4,15 @@
 <app-sign-up-validation></app-sign-up-validation>
 
 
+
+<ul>
+    <li *ngFor="let plantCategory of plantCategories">
+         {{ plantCategory.plant_category_name }}
+         <button>{{ plantCategory.plant_category_name }}</button>
+        </li>
+    
+</ul>
+<!-- 
+<button (click)="getPlantCategories()"> 
+    Get Plants
+</button> -->

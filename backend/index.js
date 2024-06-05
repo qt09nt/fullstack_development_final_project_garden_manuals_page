@@ -67,9 +67,7 @@ app.get('/plant_categories/', async(request, response)=>{
     try {
         //return the query result
         const result = await connection.query('SELECT * FROM gardening_manuals.plant_categories');
-        response.status(200).json({
-            users: result,
-        });
+        response.status(200).json(result);
     } catch (error) {
         response.send(500).send(error);
     }
@@ -309,46 +307,57 @@ app.patch('/users/change_password/:username', async (request, response) => {
 
 });
 
-//update users email
-app.patch('/users/username/update_email/:username', async (request, response) => {
+//update users email by username
+app.patch('/users/username/update_email/:user_id', async (request, response) => {
     const connection = await pool.getConnection();
-    const username = request.params.username;
+    const user_id = request.params.user_id;
     const email = request.body.email;
     const password = request.body.password;
 
-    if(!username) return response.status(500).send('Please provide a username to update email');
-    
-    if(!password) return response.status(500).send('Please provide a password to update email');
-//new parameter in the request for new email 
-    //write a select query to get email and password from the database
-    
-    // try {
-    //     const result = await connection.query(`
-    //     SELECT email, password FROM gardening_manuals.users WHERE email = email AND 
-    //     WHERE password = password
-    //     `)
-    // }
-    
-    // SELECT * FROM gardening_manuals.users WHERE email = email
-    //compare the password with the password provided in the api
-    // if (password == users.password ) {
+    if(!user_id) return response.status(500).send('Please provide a username to update email');
 
-    //}
-
-    // // add in the database for the email to be unique
-
-    //if the password matches write an update query to update the email;
-    try{
-        const result = await connection.query(`      
-        UPDATE gardening_manuals.users
-        SET email = ?
-        WHERE username = ?
-        AND is_deleted = 0`, [username, email] );   //is_deleted = 0 means look only at active users account, not deleted ones
-        return response.status(200).send(`Number of rows updated = ${result.affectedRows}`);
-    } catch (error) {
-        console.log(error);
-        return response.status(500).send(error.toString());
+    if(!email) return response.status(500).send('Please provide a username to update email');
+    
+    if(!password) {
+        return response.status(500).send('Please provide a password to update email');
     }
+
+    try {
+        const result = await connection.query(`
+        SELECT email, password 
+        FROM gardening_manuals.users 
+        WHERE user_id = ?         
+        `, user_id )
+        if(!result){
+            return response.status(500).send('User not found');
+        } else {
+            const userDetails = result[0];
+            if(userDetails.password == password){
+                try {
+                const update_result = await connection.query(`      
+                UPDATE gardening_manuals.users
+                SET email = ?
+                WHERE user_id = ?
+                AND is_deleted = 0`, [email, user_id] );
+                if(update_result){
+                    return response.status(200).send(`Number of records updated = ${update_result.affectedRows}`);
+                } else {
+                    return response.status(500).send(`Something went wrong`);
+                }
+
+                } catch (errors) {
+                    return response.status(500).json(errors);
+                }
+                // return response.status(200).json(update_result);
+            } else {
+                return response.status(500).send('Incorrect Password provided');
+            }
+            
+        }
+    }     catch (err){
+        console.log(err)
+    }
+        // // add in the database for the email to be unique
 
 });
 
