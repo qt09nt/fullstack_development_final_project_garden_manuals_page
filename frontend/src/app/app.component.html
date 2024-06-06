@@ -1,9 +1,57 @@
+<html>
+
+<Header>
+    <h1>
+    Welcome to the Gardening Manuals Page!
+    </h1>
+    </Header>
+    <body style="background-color:rgb(125, 219, 164)">
+</body>
+</html>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+             <div class="card">
+                <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Vegetables</h5>
+                    <p class="card-text"> Various Vegetables ie. Broccoli, radish, carrots </p> 
+                </div>
+            </div> 
+        </div>
+        
+        <div class="col-4">
+            <div class="card">
+                <img src="../assets/images/fruits.jpg" alt="Fruits" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">Fruits</h5>
+                    <p class="card-text"> Strawberries, Apples, Lemons etc. </p> 
+                </div>
+            </div>    
+        </div>
+        
+        <div class="col-4">
+                <div class="card">
+                    <img src="../assets/images/herbs.jpg" alt="Herbs" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Herbs</h5>
+                        <p class="card-text"> Basil, Sage, Thyme etc. </p> 
+                    </div>
+                </div>    
+            </div>
+        </div>
+
+    </div>
+
+
 <!-- this shows the sign up form -->
 <!-- <app-sign-up></app-sign-up> -->
 
-<app-sign-up-validation></app-sign-up-validation>
+<!-- Sign up page validation in progress - works so far
+Hide for now -->
 
-
+<!-- <app-sign-up-validation></app-sign-up-validation> -->
 
 <ul>
     <li *ngFor="let plantCategory of plantCategories">
@@ -12,7 +60,11 @@
         </li>
     
 </ul>
+
 <!-- 
 <button (click)="getPlantCategories()"> 
     Get Plants
 </button> -->
+
+
+
