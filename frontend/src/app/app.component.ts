@@ -3,11 +3,13 @@ import { RouterOutlet } from '@angular/router'
 import { PlantCategoriesService } from './plant-categories.service';
 import { CommonModule} from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
+
 export class AppComponent {
   title = 'frontend';
 
@@ -20,6 +22,7 @@ export class AppComponent {
       console.log('Plant Category ==== ', result);
     })
 
+    
   }
 
   ngOnInit(){
@@ -38,3 +41,4 @@ export class AppComponent {
 
   // }
 }
+
