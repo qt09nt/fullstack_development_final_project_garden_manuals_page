@@ -1,10 +1,10 @@
+//import express web framework
 const express = require('express'); //importing the express package
 const app = express(); //create a web application
 const pool = require('./connection');
 const cors = require('cors');
 
 app.use(express.json());
-
 app.use(cors()); //will grant or allow access from the frontend
 
 ///this middleware gets executed whenever there is a call or request//
@@ -20,8 +20,8 @@ app.use(function (req, res, next) {
     next();
 })
 
+//middleware
 app.use(express.json());
-
 app.use(cors());
 
 //home route
@@ -479,7 +479,9 @@ app.post('/login/', async (request, response) =>{
 
 })
 
-
+// When done with the connection, release it.
+//connection.release();
+//connection.end();
 
 //create the web server
 app.listen(3000, function(){
