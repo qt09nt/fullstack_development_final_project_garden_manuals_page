@@ -41,6 +41,8 @@ app.get('/plant_info/', async(request, response)=>{
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -56,6 +58,8 @@ app.get('/users/', async(request, response)=>{
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -70,6 +74,8 @@ app.get('/plant_categories/', async(request, response)=>{
         response.status(200).json(result);
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -85,6 +91,8 @@ app.get('/user_faves/', async(request, response)=>{
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -130,6 +138,8 @@ app.get('/users/:id', async (request, response) => {
         });
     } catch (error) {
         response.status(500).json(error);
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -154,6 +164,8 @@ app.get('/plant_info/:id', async (request, response) => {
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -182,6 +194,8 @@ app.get('/user_faves/:id', async (request, response) => {
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -200,6 +214,8 @@ app.get('/plant_categories/:id', async (request, response) => {
         });
     } catch (error) {
         response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -225,6 +241,8 @@ app.post('/users/', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -245,6 +263,8 @@ app.post('/plant_info/', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -264,6 +284,8 @@ app.post('/plant_categories/', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -283,6 +305,8 @@ app.post('/user_faves/', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error);
+    } finally {
+        if (connection) return connection.end();
     }
 });
 
@@ -303,6 +327,8 @@ app.patch('/users/change_password/:username', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error.toString());
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -356,6 +382,8 @@ app.patch('/users/username/update_email/:user_id', async (request, response) => 
         }
     }     catch (err){
         console.log(err)
+    } finally {
+        if (connection) return connection.end();
     }
         // // add in the database for the email to be unique
 
@@ -388,6 +416,8 @@ app.patch('/users/delete/:id', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error.toString());
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -410,6 +440,8 @@ app.delete('/plant_info/:id', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error.toString());
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -427,6 +459,8 @@ app.delete('/plant_categories/:id', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error.toString());
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -445,6 +479,8 @@ app.delete('/user_faves/:id', async (request, response) => {
     } catch (error) {
         console.log(error);
         return response.status(500).send(error.toString());
+    } finally {
+        if (connection) return connection.end();
     }
 
 });
@@ -467,6 +503,8 @@ app.post('/register/', async (request, response) =>{
                                                 VALUES ? , ? `, [username, password]);
     } catch(error){
 
+    } finally {
+        if (connection) return connection.end();
     }
 
     //get the database connection
@@ -484,7 +522,7 @@ app.post('/login/', async (request, response) =>{
 //connection.end();
 
 //create the web server
-app.listen(3000, function(){
+app.listen(3000, function(){ 
     console.log('Server running on port 3000....');
 });
 
