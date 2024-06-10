@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router'
 import { PlantCategoriesService } from './plant-categories.service';
 import { CommonModule} from '@angular/common';
 import { PlantsComponent } from './components/plants/plants.component';
-import { PlantCategoriesDetailsComponent } from './plant-categories-details/plant-categories-details.component';
+// import { PlantCategoriesDetailsComponent } from './components/plant-categories-details/plant-categories-details.component';
 
 @Component({
   selector: 'app-root',

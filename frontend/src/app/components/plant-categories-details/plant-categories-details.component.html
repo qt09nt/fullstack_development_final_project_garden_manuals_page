@@ -1,0 +1,15 @@
+<p>plant-categories-details works!</p>
+
+<div class="col-4" *ngFor="let plantCategory of plantCategories">
+    <div class="card">
+       <!-- {{ plantCategory.plant_category_name }} -->
+       <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
+       <!-- <img [src] = {{ "../assets/images/" + plantCategory.plant_category_name + '.jpeg' "}}  -->
+       <!-- <img [src] = "../assets/images/" + {{plantCategory.plant_category_name }} + '.jpeg' "> -->
+       <div class="card-body">
+           <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
+           <p class="card-text"> Various Vegetables ie. Broccoli, radish, carrots </p> 
+           <button>{{ plantCategory.plant_category_name }}</button>
+       </div>
+   </div> 
+</div>
