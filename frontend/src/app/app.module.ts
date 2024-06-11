@@ -5,39 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { PlantsComponent } from './components/plants/plants.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { FormsModule} from '@angular/forms';
 import { SignUpValidationComponent } from './sign-up-validation/sign-up-validation.component';
-import { PlantCategoriesVegetablesComponent } from './plant-categories-vegetables/plant-categories-vegetables.component';
-//import { PlantCategoriesDetailsComponent } from './components/plant-categories-details/plant-categories-details.component';
-
-
-import { CommonModule } from '@angular/common';
-
-@NgModule({
-  imports: [
-    CommonModule,
-    FormsModule      
-  ]
-})
-
 
 @NgModule({
   declarations: [
     AppComponent,
     PlantsComponent,
-    SignUpComponent,
     SignUpValidationComponent,
-    PlantCategoriesVegetablesComponent
-    // PlantCategoriesDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,    
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,14 @@
 <div class="container">
 
-    <form #signUpForm="ngForm">
+    <form>
 
         <div class="form-group">
             <label for="email">Email</label>
             <!-- check for "@ sign in email using regex pattern" -->
-            <input class="form-control" type="email" name="email" [(ngModel)]="signUpDetails.email" pattern=".*@[a-z0-9.-]*" required #emailCheck="ngModel">
-            <div *ngIf="emailCheck.touched && emailCheck.invalid" class="text-danger">
+            <input class="form-control" type="email" name="email" pattern=".*@[a-z0-9.-]*" required>
+            <!-- <div *ngIf="emailCheck.touched && emailCheck.invalid" class="text-danger">
                 Email is required
-            </div>
+            </div> -->
             <!-- <div *ngIf="emailCheck.touched && emailCheck?.errors?.['pattern']?.actualValue" class="text-danger">
                 Email is invalid
             </div>
@@ -20,17 +20,17 @@
             Touched {{ emailCheck.touched }}<br> -->
         <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" type="username" name="username" [(ngModel)]="signUpDetails.username" required #usernameCheck="ngModel">
-            <div *ngIf="usernameCheck.touched && usernameCheck.invalid" class="text-danger">          
+            <input class="form-control" type="username" name="username"  required >
+            <!-- <div *ngIf="usernameCheck.touched && usernameCheck.invalid" class="text-danger">          
                           Username is required
-            </div>
+            </div> -->
         
             <div class="form-group">
                 <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" [(ngModel)]="signUpDetails.password" required #passwordCheck="ngModel">
-                <div *ngIf="passwordCheck.touched && passwordCheck.invalid" class="text-danger">           
+                <input class="form-control" type="password" name="password" required>
+                <!-- <div *ngIf="passwordCheck.touched && passwordCheck.invalid" class="text-danger">           
                              Password is required
-                </div>
+                </div> -->
             
             
         </div>

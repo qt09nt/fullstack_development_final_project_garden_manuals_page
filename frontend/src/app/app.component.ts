@@ -8,23 +8,7 @@ import { PlantsComponent } from './components/plants/plants.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  // imports: [
-  //   CommonModule,
-  //   PlantCategoriesDetailsComponent
-  // ],
-
-  template: `
-  <section>
-    <form>
-      <input type="text" placeholder="Search by plant name">
-      <button class="primary" type="button">Search</button>
-    </form>
-  </section>
-  <section class="results">
-    <app-plant-categories-details></app-plant-categories-details>
-  </section>
-`,
+  styleUrl: './app.component.css',  
 })
 
 export class AppComponent {
@@ -34,11 +18,6 @@ export class AppComponent {
   plantCategories: any;
 
   constructor(){
- 
-    this.plantCategoriesService.getPlantCategoriesById().subscribe((result:any) => {
-      console.log('Plant Category ==== ', result);
-    })
-
     
   }
 

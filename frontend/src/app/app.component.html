@@ -33,21 +33,24 @@
     </div>
   </nav>
 
-<div class="container">
-    <div class="row">
-        <div class="col-4" *ngFor="let plantCategory of plantCategories">
-             <div class="card">
+  <app-plants></app-plants>
+
+<!-- <div class="container">
+    <div class="row"> -->
                 <!-- {{ plantCategory.plant_category_name }} -->
-                <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
                 <!-- <img [src] = {{ "../assets/images/" + plantCategory.plant_category_name + '.jpeg' "}}  -->
                 <!-- <img [src] = "../assets/images/" + {{plantCategory.plant_category_name }} + '.jpeg' "> -->
+
+        <!-- <div class="col-4" *ngFor="let plantCategory of plantCategories">
+             <div class="card">
+                <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
                     <p class="card-text"> Various Vegetables ie. Broccoli, radish, carrots </p> 
                     <button>{{ plantCategory.plant_category_name }}</button>
                 </div>
             </div> 
-        </div>
+        </div> -->
         
         <!-- <div class="col-4">
             <div class="card">
@@ -70,7 +73,7 @@
             </div>
         </div> -->
 
-    </div>
+    <!-- </div> -->
 
 
 <!-- this shows the sign up form -->

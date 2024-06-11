@@ -16,12 +16,12 @@ export class PlantCategoriesService {
     return this.http.get('http://localhost:3000/plant_categories/', options);
   }
 
-  getPlantCategoriesById(){
-    const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
-    const options = {headers: headers};
+  // getPlantCategoriesById(category_id){
+  //   const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
+  //   const options = {headers: headers};
 
-    return this.http.get('http://localhost:3000/plant_categories/:plant_category_ID/', options);
-  }
+  //   return this.http.get('http://localhost:3000/plant_categories/' + category_id, options);
+  // }
 
   
   constructor() { }  

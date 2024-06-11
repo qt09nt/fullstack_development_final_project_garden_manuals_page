@@ -1,4 +1,5 @@
-<table class="table table-striped">
+
+<!-- <table class="table table-striped">
     <tr>
         <th>Plant Category ID</th>
         <th>Plant Category Name</th>
@@ -8,7 +9,21 @@
         <td>{{ plant.plant_category_ID }}</td>
         <td>{{ plant.plant_category_name }}</td>
     </tr>
-</table>
+</table> -->
 
+<div class="container">
+  <div class="row">
+    <div class="col-4" *ngFor="let plantCategory of plantCategories">
+          <div class="card">
+            <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
+                <p class="card-text"> </p> 
+                <button onclick="getPlantCategoryId()">{{ plantCategory.plant_category_name }}</button>
+            </div>
+        </div> 
+    </div>
+  </div>
+</div>
 <!-- <p>plants works!</p> -->
 
