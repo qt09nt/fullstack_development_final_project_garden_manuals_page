@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PlantsComponent } from './components/plants/plants.component';
 import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
+// import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
 const routes: Routes = [
@@ -11,9 +12,15 @@ const routes: Routes = [
   },
   {
     
-    path: 'specific_plants_in_category/:id',
+    path: 'specific_plants_in_category/:category_id',
     component: SpecifcPlantsInCategoryComponent
-   }
+    }
+
+  //  {
+    
+  //   path: '/**',
+  //   component: NotfoundComponentComponent
+  //  }
 ];
 
 @NgModule({
