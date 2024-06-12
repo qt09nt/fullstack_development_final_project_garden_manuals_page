@@ -8,12 +8,15 @@ import { PlantsComponent } from './components/plants/plants.component';
 
 import { FormsModule} from '@angular/forms';
 import { SignUpValidationComponent } from './sign-up-validation/sign-up-validation.component';
+import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PlantsComponent,
     SignUpValidationComponent,
+    SpecifcPlantsInCategoryComponent,
   ],
   imports: [
     BrowserModule,

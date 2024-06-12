@@ -16,14 +16,20 @@
     <div class="col-4" *ngFor="let plantCategory of plantCategories">
           <div class="card">
             <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
+
             <div class="card-body">
                 <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
-                <p class="card-text"> </p> 
-                <button onclick="getPlantCategoryId()">{{ plantCategory.plant_category_name }}</button>
-            </div>
+                <p class="card-text"> {{plantCategory.plant_category_ID}}</p> 
+                <!-- <button onclick="getPlantCategoriesById()">{{ plantCategory.plant_category_name }}</button> -->
+                <button (click)="getPlantCategoriesById(plantCategory.plant_category_ID)">{{ plantCategory.plant_category_name }}</button>
+                routerA('url/route/id')
+
+              </div>
         </div> 
     </div>
   </div>
 </div>
 <!-- <p>plants works!</p> -->
 
+<!-- <app-plant-categories-details></app-plant-categories-details> -->
+<!-- <app-plant-categories-details></app-plant-categories-details> -->

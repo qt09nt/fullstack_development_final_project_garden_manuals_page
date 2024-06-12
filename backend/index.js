@@ -170,6 +170,32 @@ app.get('/plant_info/:id', async (request, response) => {
 
 });
 
+app.get('/get_plants_in_plant_category/:id', async (request, response) => {
+    const connection = await pool.getConnection();
+    const id = request.params.id;
+    try {
+        const result = await connection.query(`
+        SELECT * 
+        FROM gardening_manuals.plant_info
+        WHERE plant_category_ID = ?`, id);
+
+        if (result.length == 0){
+            return response.status(500).json("Plant id not found");
+        }
+
+        response.status(200).json({
+            plant_info: result,
+            
+        });
+    } catch (error) {
+        response.send(500).send(error);
+    } finally {
+        if (connection) return connection.end();
+    }
+
+});
+
+
 app.get('/user_faves/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;

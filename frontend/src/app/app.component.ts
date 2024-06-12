@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router'
-import { PlantCategoriesService } from './plant-categories.service';
+import { PlantCategoriesService } from './services/plant-categories.service';
 import { CommonModule} from '@angular/common';
 import { PlantsComponent } from './components/plants/plants.component';
 // import { PlantCategoriesDetailsComponent } from './components/plant-categories-details/plant-categories-details.component';
