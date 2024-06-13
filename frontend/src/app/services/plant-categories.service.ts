@@ -6,6 +6,9 @@ import { Iplantcategories } from '../interfaces/iplantcategories';
   providedIn: 'root'
 })
 export class PlantCategoriesService {
+  // static getPlantCategoriesById(arg0: number): any {
+  //   throw new Error('Method not implemented.');
+  // }
 
   constructor(private http: HttpClient) { }
 
@@ -21,11 +24,14 @@ export class PlantCategoriesService {
   // }
 
   
-  getPlantCategoriesById(category_id: number){
+  getPlantCategoriesById(category_id: number) : any {
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
     const options = {headers: headers};
 
     return this.http.get('http://localhost:3000/get_plants_in_plant_category/' + category_id, options);
   }
+
+  
+ 
 
 }

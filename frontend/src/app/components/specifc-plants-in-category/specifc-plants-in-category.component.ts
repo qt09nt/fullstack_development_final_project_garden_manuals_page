@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { PlantCategoriesService } from '../../services/plant-categories.service';
 
 @Component({
   selector: 'app-specifc-plants-in-category',
@@ -7,12 +8,24 @@ import { ActivatedRoute } from "@angular/router";
   styleUrl: './specifc-plants-in-category.component.css'
 })
 export class SpecifcPlantsInCategoryComponent {
+  currentCategory: any;
 
 //create a function to get the id from the route/url
   constructor(private route: ActivatedRoute){
 
-    const plantCategoryId = route.snapshot.paramMap.get('category_id');
-      console.log(plantCategoryId);
+    // const plantCategoryId = route.snapshot.paramMap.get('category_id');
+    //   console.log(plantCategoryId);
+    
+    //currentCategory: Icategory;    
+
+    this.route.paramMap.subscribe(params => {
+      let plant_category_id = params.get('category_id');
+      console.log('this is the plant category id ', plant_category_id);
+
+      //this.currentCategory = PlantCategoriesService.getPlantCategoriesById(parseInt(plant_category_id!));
+
+    })
+
     //office;
     // ngOnInit(){
 
