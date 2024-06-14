@@ -12,34 +12,30 @@ import { IplantSubCategories } from '../../interfaces/iplantcategories';
 export class SpecifcPlantsInCategoryComponent {
   
   //! used to silence the error message
-  plantSubCategories!: IplantSubCategories[]; 
-  
+  //plantSubCategories!: IplantSubCategories[]; 
+  plantSubCategories: any = []; 
 
 //create a function to get the id from the route/url
   constructor(private route: ActivatedRoute, private plantCategoriesService: PlantCategoriesService){
 
     // const plantCategoryId = route.snapshot.paramMap.get('category_id');
     //   console.log(plantCategoryId);
-    
-    //currentCategory: Icategory;
 
     this.route.paramMap.subscribe(params => {
       let plant_category_id = params.get('category_id');
       console.log('this is the plant category id ', plant_category_id);
       
       if(plant_category_id){
-          this.plantCategoriesService.getPlantCategoriesById(plant_category_id).subscribe((result:any) => {
+          this.plantCategoriesService.getPlantCategoriesById(plant_category_id).subscribe((result:any []) => {
             //this.plantSubCategories = [result]; //cast result as array object
+            
             this.plantSubCategories = result;  
             console.log('HG here === ', this.plantSubCategories);
-
-
+            console.log(typeof(this.plantSubCategories))
+         
           })
        }
-      
-    })
-      
+    })   
   }
-
 }
 

@@ -24,7 +24,7 @@ export class PlantCategoriesService {
   // }
 
   
-  getPlantCategoriesById(category_id: number | string) : any {
+  getPlantCategoriesById(category_id: number | string) : any  {
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
     const options = {headers: headers};
 

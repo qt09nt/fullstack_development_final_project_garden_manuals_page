@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PlantsComponent } from './components/plants/plants.component';
 import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
 import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
+import { SignUpValidationComponent } from './sign-up-validation/sign-up-validation.component';
 // import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
@@ -16,10 +17,16 @@ const routes: Routes = [
     component: SpecifcPlantsInCategoryComponent
   },
   {
+    path: 'home/sign_up',
+    component: SignUpValidationComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   },
+
+
   {
     path: '**',
     component: NotfoundComponentComponent
