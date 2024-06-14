@@ -18,8 +18,9 @@ export class PlantCategoriesDetailsComponent {
   //function to get Plant Category ID
   getPlantCategoriesById(category_id: number) {
     this.GetPlantCategoriesByIdService.getPlantByCategory(category_id).subscribe((result:any) => {
-      console.log(result)
+      console.log(result);
     }); 
   }
 }
+
 

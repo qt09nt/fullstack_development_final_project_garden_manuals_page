@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Iplantcategories } from '../interfaces/iplantcategories';
+import { IplantSubCategories, Iplantcategories } from '../interfaces/iplantcategories';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,11 @@ export class PlantCategoriesService {
   // }
 
   
-  getPlantCategoriesById(category_id: number) : any {
+  getPlantCategoriesById(category_id: number | string) : any {
     const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
     const options = {headers: headers};
 
-    return this.http.get('http://localhost:3000/get_plants_in_plant_category/' + category_id, options);
+    return this.http.get<IplantSubCategories[]>('http://localhost:3000/get_plants_in_plant_category/' + category_id, options);
   }
 
   

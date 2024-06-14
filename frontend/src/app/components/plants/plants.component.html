@@ -20,12 +20,14 @@
             <div class="card-body">
                 <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
                 <p class="card-text"> {{plantCategory.plant_category_ID}}</p> 
-                <!-- <button onclick="getPlantCategoriesById()">{{ plantCategory.plant_category_name }}</button> -->
                
-                <!-- <button (click)="getPlantCategoriesById(plantCategory.plant_category_ID)">{{ plantCategory.plant_category_name }}</button>
-                -->
+                <!-- (click)="getPlantCategoriesById(plantCategory.plant_category_ID) -->
                 <!-- this will make a new URL for the plant category clicked -->
-                <a [routerLink]="['/specific_plants_in_category', plantCategory.plant_category_ID]"><button (click)="getPlantCategoriesById(plantCategory.plant_category_ID)">{{ plantCategory.plant_category_name }}</button></a>
+                <a [routerLink]="['/specific_plants_in_category', plantCategory.plant_category_ID]">
+                  <button>{{ plantCategory.plant_category_name }}
+
+                  </button>
+                </a>
               
                <!-- {{ plantCategory.plant_category_name }}
                -->

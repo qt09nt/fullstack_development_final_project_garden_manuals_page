@@ -2,25 +2,28 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PlantsComponent } from './components/plants/plants.component';
 import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
+import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 // import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
 const routes: Routes = [
   {
-    path: 'plant_categories',
+    path: 'home',
     component: PlantsComponent
   },
   {
-    
     path: 'specific_plants_in_category/:category_id',
     component: SpecifcPlantsInCategoryComponent
-    }
-
-  //  {
-    
-  //   path: '/**',
-  //   component: NotfoundComponentComponent
-  //  }
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: NotfoundComponentComponent
+  }
 ];
 
 @NgModule({
