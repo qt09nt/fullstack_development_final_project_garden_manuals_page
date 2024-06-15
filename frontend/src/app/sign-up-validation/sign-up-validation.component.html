@@ -1,11 +1,12 @@
 <div class="container">
 
-    <form>
+    <form #signUpForm="ngForm">
 
         <div class="form-group">
             <label for="email">Email</label>
             <!-- check for "@ sign in email using regex pattern" -->
             <input class="form-control" type="email" name="email" pattern=".*@[a-z0-9.-]*" required>
+
             <!-- <div *ngIf="emailCheck.touched && emailCheck.invalid" class="text-danger">
                 Email is required
             </div> -->
@@ -32,8 +33,10 @@
                              Password is required
                 </div> -->
             
-                <button class="btn btn-primary" type="button">Sign Up</button>
+                <button class="btn btn-primary" click="onSubmit()" type="button">Sign Up</button>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         </div>
             
+        {{ signUpForm.value | json }}
     <!-- </form> -->
 </div>
