@@ -170,6 +170,7 @@ app.get('/plant_info/:id', async (request, response) => {
 
 });
 
+
 app.get('/get_plants_in_plant_category/:id', async (request, response) => {
     const connection = await pool.getConnection();
     const id = request.params.id;
@@ -184,6 +185,7 @@ app.get('/get_plants_in_plant_category/:id', async (request, response) => {
         }
 
         response.status(200).json({
+        
             plant_info: result,
             
         });

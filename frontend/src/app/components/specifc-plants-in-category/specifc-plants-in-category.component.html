@@ -3,8 +3,19 @@
 
 <div class="container">
     <div class="row">
+
+      <!-- <form #plantSubCategories="ngForm"> -->
+
+      <!-- convert [object Object] to array by converting to json -->
+      {{ plantSubCategories.value | json }}
+      
+     <!-- {{ plantSubCategory.value | json }} -->
+
       <div class="col-4" *ngFor="let plantSubCategory of plantSubCategories">
         
+
+        <p>plantSubCategories:{{plantSubCategories.plant_id}}</p>
+
             <div class="card">
               <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
   
@@ -19,7 +30,7 @@
 
                   <button>{{plantSubCategory.plant_name }}</button>
 
-                  {{ plantSubCategory.value | json }}
+                  
 
                 </div>
                

@@ -1,42 +1,41 @@
+
 <div class="container">
 
-    <form #signUpForm="ngForm">
+    <form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)">
 
         <div class="form-group">
             <label for="email">Email</label>
-            <!-- check for "@ sign in email using regex pattern" -->
-            <input class="form-control" type="email" name="email" pattern=".*@[a-z0-9.-]*" required>
-
-            <!-- <div *ngIf="emailCheck.touched && emailCheck.invalid" class="text-danger">
+            <input class="form-control" type="email" name="email" [(ngModel)]="signUpDetails.email" pattern=".*@[a-z0-9.-]*"
+             required #emailCheck="ngModel">
+            <div *ngIf="emailCheck.touched && emailCheck.invalid" class="text-danger">
                 Email is required
-            </div> -->
-            <!-- <div *ngIf="emailCheck.touched && emailCheck?.errors?.['pattern']?.actualValue" class="text-danger">
-                Email is invalid
             </div>
-             -->
-        </div>
-            <!-- INVALID {{ emailCheck.invalid }} <br>
-            VALID {{ emailCheck.valid  }} <br>
-            ERRORS {{ emailCheck.errors | json }} <br>
-            Touched {{ emailCheck.touched }}<br> -->
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input class="form-control" type="username" name="username"  required >
-            <!-- <div *ngIf="usernameCheck.touched && usernameCheck.invalid" class="text-danger">          
-                          Username is required
+            <!-- <div *ngIf="emailCheck.touched && emailCheck?.errors?." class="text-danger">
+                Email is invalid.
             </div> -->
-        
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" required>
-                <!-- <div *ngIf="passwordCheck.touched && passwordCheck.invalid" class="text-danger">           
-                             Password is required
-                </div> -->
-            
-                <button class="btn btn-primary" click="onSubmit()" type="button">Sign Up</button>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         </div>
-            
-        {{ signUpForm.value | json }}
-    <!-- </form> -->
+        
+        <div class="form-group">
+            <label for="username">username</label>
+            <input class="form-control" type="text" name="username" [(ngModel)]="signUpDetails.username"
+             required #usernameCheck="ngModel">
+            <div *ngIf="usernameCheck.touched && usernameCheck.invalid" class="text-danger">
+               Username is required
+            </div>            
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" minlength="6" [(ngModel)]="signUpDetails.password"
+             required #passwordCheck="ngModel">
+            <div *ngIf="passwordCheck.touched && passwordCheck.invalid" class="text-danger">
+                Password is required and make sure its more than 6 characters
+            </div>            
+        </div>
+       
+        <a routerLink="/signUp"> <button type="submit" class="btn btn-primary">Sign Up</button></a>
+
+        <!-- <p *ngIf="isSubmit"> {{submitMessage}}</p> -->
+    </form>
+
 </div>
