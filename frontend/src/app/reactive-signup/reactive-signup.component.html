@@ -1,0 +1,50 @@
+<div class="container">
+    <form [formGroup] = "signUpForm" (ngSubmit)="submitForm()">
+        <div class="form-group">
+
+            <label for="email">Email</label>
+            <input class="form-control" type="email" name="email" formControlName="email">
+            <div *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.invalid" class="text-danger">
+                    Email is required
+            </div>
+           
+            <!-- this line shows what the values are for email, username and password -->
+            <!-- {{signUpForm.value | json }}  -->
+
+            <!-- this line shows that email is required
+            {{signUpForm.get('email')?.errors | json }} -->
+
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="username" name="username" formControlName="username">
+            <div *ngIf="signUpForm.get('username')?.touched && signUpForm.get('username')?.invalid" class="text-danger">
+                    Username is required
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" formControlName="password">
+            <div *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid && !signUpForm?.get('password')?.errors?.invalidPassword" class="text-danger">
+                    Password is required.
+            </div>
+            <div *ngIf="signUpForm.get('password')?.touched && signUpForm?.get('password')?.errors?.invalidPassword" class="text-danger">
+                Password is not secure
+            </div>
+             {{ signUpForm.get('password')?.errors?.invalidPassword }} 
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+<!-- {{test}} -->
+
+<!-- <p>reactive-signup works!</p> -->
+
+
+<!-- <input type="text" [ngModel]="test"> -->
+

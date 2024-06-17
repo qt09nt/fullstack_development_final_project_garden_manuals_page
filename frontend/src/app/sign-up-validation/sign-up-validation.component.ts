@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './sign-up-validation.component.html',
   styleUrl: './sign-up-validation.component.css'
 })
+
 export class SignUpValidationComponent {
 
   passwordCheck: any;
@@ -25,8 +26,13 @@ isSubmit: any;
 
   
   onSubmit(form:any){
+    console.log('HERE');
     if(form.valid){
       console.log('Form', form);
+
+      //get the form email, password and username value and run the POST request for new
+      form.email 
+
     }
   }
 

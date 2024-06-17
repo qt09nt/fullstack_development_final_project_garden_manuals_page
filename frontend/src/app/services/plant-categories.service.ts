@@ -31,7 +31,11 @@ export class PlantCategoriesService {
     return this.http.get<IplantSubCategories[]>('http://localhost:3000/get_plants_in_plant_category/' + category_id, options);
   }
 
-  
+  //this function is for getting username, email and passsword from the sign up page 
+  //and updating the users table
+  // getSignUpUsers(form_email, form_username, form_password){
+
+  // }
  
 
 }

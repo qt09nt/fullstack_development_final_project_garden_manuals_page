@@ -248,7 +248,7 @@ app.get('/plant_categories/:id', async (request, response) => {
 });
 
 //add a new user 
-app.post('/users/', async (request, response) => {
+app.post('/signup_new_user/', async (request, response) => {
     const connection = await pool.getConnection();
     const { email, username, password } = request.body;
 

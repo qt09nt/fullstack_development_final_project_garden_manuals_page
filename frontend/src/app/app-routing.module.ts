@@ -4,10 +4,13 @@ import { PlantsComponent } from './components/plants/plants.component';
 import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
 import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 import { SignUpValidationComponent } from './sign-up-validation/sign-up-validation.component';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
 // import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
 const routes: Routes = [
+  
   {
     path: 'home',
     component: PlantsComponent
@@ -17,16 +20,22 @@ const routes: Routes = [
     component: SpecifcPlantsInCategoryComponent
   },
   {
-    path: 'home/sign_up',
+    path: 'home/sign_up_template',
     component: SignUpValidationComponent
+  },
+  {
+    path: 'home/sign_up_reactive',
+    component: ReactiveSignupComponent
+  },
+  {
+    path: 'home/login',
+    component: LoginComponent
   },
   {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
   },
-
-
   {
     path: '**',
     component: NotfoundComponentComponent

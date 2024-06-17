@@ -6,10 +6,17 @@ import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { PlantsComponent } from './components/plants/plants.component';
 
+//use this when using Angular Template forms
 import { FormsModule} from '@angular/forms';
+
 import { SignUpValidationComponent } from './sign-up-validation/sign-up-validation.component';
 import { SpecifcPlantsInCategoryComponent } from './components/specifc-plants-in-category/specifc-plants-in-category.component';
 import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+// import { FormGroup } from '@angular/forms';
 
 
 @NgModule({
@@ -19,15 +26,19 @@ import { NotfoundComponentComponent } from './components/notfound-component/notf
     SignUpValidationComponent,
     SpecifcPlantsInCategoryComponent,
     NotfoundComponentComponent,
+    LoginComponent,
+    ReactiveSignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,    
+    FormsModule,      //angular template forms
+    ReactiveFormsModule,
   ],
   
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
