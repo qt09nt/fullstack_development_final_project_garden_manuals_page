@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ValidatePassword } from '../ValidatePassword';
+import { PlantCategoriesService } from '../services/plant-categories.service'; 
 
 @Component({
   selector: 'app-reactive-signup',
@@ -23,6 +24,8 @@ export class ReactiveSignupComponent {
      });
   }
 
+  
+ 
   // ngOnit()}{
 
   // }
@@ -33,9 +36,20 @@ export class ReactiveSignupComponent {
   //   password: new FormControl('', [Validators.required, Validators.minLength(6), ValidatePassword]),
   //  });
    
-   submitForm(){
-    if(this.signUpForm?.valid){
-      console.log('Form Submission', this.signUpForm)
+  //  submitForm(){
+  //   if(this.signUpForm?.valid){
+  //     console.log('Form Submission', this.signUpForm)
+  //   }
+  //  }
+
+   plantCategoriesService: PlantCategoriesService = inject(PlantCategoriesService);
+
+  signUp(form: any) {
+    console.log(form);
+    if (form.valid) {
+      this.plantCategoriesService.signUp(form.form.value).subscribe((result: any) => {
+        console.log(result);
+      });
     }
-   }
+  }
 }

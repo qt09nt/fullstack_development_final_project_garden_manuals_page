@@ -18,6 +18,9 @@ INSERT INTO `gardening_manuals`.`users` VALUES
 
 ALTER TABLE gardening_manuals.users 
 	ADD deleted_or_not INT NOT NULL;
+	
+ALTER TABLE gardening_manuals.users
+	ADD is_verified TINYINT(1) DEFAULT 0;
 
 ALTER TABLE gardening_manuals.users RENAME COLUMN deleted_or_not TO is_deleted;
 

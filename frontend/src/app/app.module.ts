@@ -15,6 +15,7 @@ import { NotfoundComponentComponent } from './components/notfound-component/notf
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
 
 // import { FormGroup } from '@angular/forms';
 
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotfoundComponentComponent,
     LoginComponent,
     ReactiveSignupComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,9 @@ const express = require('express'); //importing the express package
 const app = express(); //create a web application
 const pool = require('./connection');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const verifyUser = require('./auth');
 
 app.use(express.json());
 app.use(cors()); //will grant or allow access from the frontend
@@ -38,7 +41,7 @@ app.get('/plant_info/', async(request, response)=>{
         const result = await connection.query('SELECT * FROM gardening_manuals.plant_info');
         response.status(200).json({
             users: result,
-        });
+        });        
     } catch (error) {
         response.send(500).send(error);
     } finally {
@@ -185,9 +188,7 @@ app.get('/get_plants_in_plant_category/:id', async (request, response) => {
         }
 
         response.status(200).json({
-        
-            plant_info: result,
-            
+            plants: result
         });
     } catch (error) {
         response.send(500).send(error);
@@ -513,24 +514,30 @@ app.delete('/user_faves/:id', async (request, response) => {
 
 });
 
+
+
 //register user
 app.post('/register/', async (request, response) =>{
-    const {username, password, confirm_password} = request.body;
+    const {email, username, password, confirm_password} = request.body;
     // const username = request.body.username;
     // const password = request.body.password;
     // const confirm_password = request.body;
 
-    if (!username || !password || !confirm_password) response.status(500).json('All fields are required');
+    if (!email | !username || !password || !confirm_password) return response.status(500).json('All fields are required');
     
-    if(password != confirm_password) response.status(500).json('Password does not match with confirm password')
+    if(password != confirm_password) return response.status(500).json('Password does not match with confirm password')
 
     const connection = await pool.getConnection();
+    //const hashedPassword = await bcrypt.hash(password, 50);
 
     try {
-        const result = connection.query(`INSERT INTO gardening_manuals.users (username, password)
-                                                VALUES ? , ? `, [username, password]);
-    } catch(error){
+        const result = await connection.query(`INSERT INTO gardening_manuals.users (email, username, password)
+                                                VALUES (?, ? , ? )`, [email, username, password]);
 
+            return response.status(200).json(`Rows inserted ${result.affectedRows}`);
+
+    } catch(error){
+        return response.status(500).json(error);
     } finally {
         if (connection) return connection.end();
     }
@@ -540,6 +547,8 @@ app.post('/register/', async (request, response) =>{
     //encrypt the password
 
 })
+
+
 
 app.post('/login/', async (request, response) =>{
 

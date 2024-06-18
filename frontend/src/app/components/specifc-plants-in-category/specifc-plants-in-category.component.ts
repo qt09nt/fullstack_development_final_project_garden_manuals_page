@@ -26,10 +26,10 @@ export class SpecifcPlantsInCategoryComponent {
       console.log('this is the plant category id ', plant_category_id);
       
       if(plant_category_id){
-          this.plantCategoriesService.getPlantCategoriesById(plant_category_id).subscribe((result:any []) => {
+          this.plantCategoriesService.getPlantCategoriesById(plant_category_id).subscribe((result:any) => {
             //this.plantSubCategories = [result]; //cast result as array object
             
-            this.plantSubCategories = result;  
+            this.plantSubCategories = result.plants;  
             console.log('HG here === ', this.plantSubCategories);
             console.log(typeof(this.plantSubCategories))
          

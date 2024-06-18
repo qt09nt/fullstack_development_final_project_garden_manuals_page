@@ -10,6 +10,7 @@ export class PlantCategoriesService {
   //   throw new Error('Method not implemented.');
   // }
 
+
   constructor(private http: HttpClient) { }
 
   getPlantCategories(){
@@ -36,6 +37,9 @@ export class PlantCategoriesService {
   // getSignUpUsers(form_email, form_username, form_password){
 
   // }
- 
+
+  signUp(data: {}){
+    return this.http.post('http://localhost:3000/register', data);
+  }
 
 }
