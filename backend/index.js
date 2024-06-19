@@ -4,7 +4,7 @@ const app = express(); //create a web application
 const pool = require('./connection');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 // const verifyUser = require('./auth');
 
 app.use(express.json());
@@ -528,11 +528,11 @@ app.post('/register/', async (request, response) =>{
     if(password != confirm_password) return response.status(500).json('Password does not match with confirm password')
 
     const connection = await pool.getConnection();
-    //const hashedPassword = await bcrypt.hash(password, 50);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
         const result = await connection.query(`INSERT INTO gardening_manuals.users (email, username, password)
-                                                VALUES (?, ? , ? )`, [email, username, password]);
+                                                VALUES (?, ? , ? )`, [email, username, hashedPassword]);
 
             return response.status(200).json(`Rows inserted ${result.affectedRows}`);
 
@@ -552,6 +552,37 @@ app.post('/register/', async (request, response) =>{
 
 app.post('/login/', async (request, response) =>{
 
+    const { username, password } = request.body;   
+    
+    if(!username || !password) return response.status(500).json('All fields are required');
+
+    const connection = await pool.getConnection();
+
+    try {
+        const user = await connection.query(`SELECT user_id, username, password 
+                                         FROM gardening_manuals.users
+                                         WHERE username = ?`, username);
+
+        if(user.length === 0){
+            return response.status(401).json('User not found');
+        }
+
+        const matchPassword = await bcrypt.compare(password, user[0].password);
+
+        if(!matchPassword){
+            return response.status(401).json('Invalid creds');
+        }
+
+        const token = jwt.sign({ user_id: user[0].user_id }, 'thisismyencryptionkey', {
+            expiresIn: '1h',
+        });
+
+        return response.status(200).json(token);
+
+    } catch (errors) {
+        console.log(errors);
+        return response.status(500).json(errors);
+    }
 })
 
 // When done with the connection, release it.
