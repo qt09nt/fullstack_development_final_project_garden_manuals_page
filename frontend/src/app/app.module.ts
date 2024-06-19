@@ -16,6 +16,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { OnePlantComponent } from './components/one-plant/one-plant.component';
 
 // import { FormGroup } from '@angular/forms';
 
@@ -30,6 +32,8 @@ import { UserComponent } from './user/user.component';
     LoginComponent,
     ReactiveSignupComponent,
     UserComponent,
+    OnePlantComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,8 @@ import { UserComponent } from './user/user.component';
     ReactiveFormsModule,
   ],
   
-  providers: [],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 

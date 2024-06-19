@@ -7,6 +7,7 @@ import { SignUpValidationComponent } from './sign-up-validation/sign-up-validati
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
 import { UserComponent } from './user/user.component';
+import { OnePlantComponent } from './components/one-plant/one-plant.component';
 // import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'specific_plants_in_category/:category_id',
     component: SpecifcPlantsInCategoryComponent
   },
+  {
+    path: 'selected_plant_details/:plant_id',
+    component: OnePlantComponent
+  },
+
   {
     path: 'home/sign_up',
     component: SignUpValidationComponent

@@ -1,12 +1,37 @@
-<form>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+<!-- <main class = "form-signin">
+
+<form #logInForm="ngForm" (ngSubmit)="logIn(logInForm)">
+  <h1 class="h3 mb-3 fw-normal">Log In</h1>
+  
+  <div class="form-floating">
+      <label for="username">Username</label>
+      <input type="username" class="form-control" name="username" [(ngModel)]="logInDetails.username">
     </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+
+    <div class="form-floating">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" [(ngModel)]="logInDetails.password">
     </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Log In</button>
   </form>
+</main> -->
+
+
+<main class="form-signin">
+  <form #signInForm="ngForm" (ngSubmit)="signIn(signInForm)">
+      <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+      
+      <div class="form-floating">
+          <label for="username">Username</label>
+          <input class="form-control" type="text" name="username" [(ngModel)]="signInDetails.username">
+      </div>
+
+      <div class="form-floating">
+          <label for="email">Password</label>
+          <input class="form-control" type="password" name="password" [(ngModel)]="signInDetails.password">
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+  </form>
+</main>

@@ -1,4 +1,3 @@
-<p>specifc-plants-in-category works!</p>
 <!-- Handle how you are going to display the data that will be returned in the request -->
 
 <div class="container">
@@ -8,13 +7,14 @@
 
       <!-- convert [object Object] to array by converting to json -->
       {{ plantSubCategories.value | json }}
+    
       
      <!-- {{ plantSubCategory.value | json }} -->
 
       <div class="col-4" *ngFor="let plantSubCategory of plantSubCategories">
         
 
-        <p>plantSubCategories:{{plantSubCategories.plant_id}}</p>
+        <p>{{plantSubCategories.plant_id}}</p>
 
             <div class="card">
               <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">

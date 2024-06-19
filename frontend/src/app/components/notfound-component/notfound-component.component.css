@@ -69,7 +69,7 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-    };
+    }
     100% {
       opacity: 1;
     }

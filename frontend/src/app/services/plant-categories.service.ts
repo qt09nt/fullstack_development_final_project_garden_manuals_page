@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IplantSubCategories, Iplantcategories } from '../interfaces/iplantcategories';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,11 @@ export class PlantCategoriesService {
   //   throw new Error('Method not implemented.');
   // }
 
-
   constructor(private http: HttpClient) { }
+
+  //http: HttpClient = inject(HttpClient);
+  jwtHelper: JwtHelperService = inject(JwtHelperService);
+
 
   getPlantCategories(){
     return this.http.get<Iplantcategories[]>('http://localhost:3000/plant_categories');
@@ -37,9 +41,29 @@ export class PlantCategoriesService {
   // getSignUpUsers(form_email, form_username, form_password){
 
   // }
+  getPlantById(plant_id: number ) {
+    const headers = new HttpHeaders({'Content-Type':'application/json', 'Accept':'application/json'});
+    const options = {headers: headers};
+
+    return this.http.get('http://localhost:3000/plant_info/' + plant_id, options);
+  }
+
 
   signUp(data: {}){
     return this.http.post('http://localhost:3000/register', data);
   }
 
+  signIn(data: {}){
+    return this.http.post('http://localhost:3000/login', data);
+  }
+
+  isAuthenticated(){
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  getToken(){
+    return localStorage.getItem('token'); 
+  }
 }
+
