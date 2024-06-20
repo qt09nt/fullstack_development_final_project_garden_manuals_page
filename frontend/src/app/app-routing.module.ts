@@ -23,7 +23,7 @@ const routes: Routes = [
     component: SpecifcPlantsInCategoryComponent
   },
   {
-    path: 'selected_plant_details/:plant_id',
+    path: 'specific_plants_in_category/:category_id/selected_plant_details/:plant_id',
     component: OnePlantComponent
   },
 

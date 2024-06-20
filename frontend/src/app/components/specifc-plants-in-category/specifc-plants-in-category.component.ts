@@ -9,12 +9,14 @@ import { IplantSubCategories } from '../../interfaces/iplantcategories';
   styleUrl: './specifc-plants-in-category.component.css'
 })
 
+
 export class SpecifcPlantsInCategoryComponent {
   
   //! used to silence the error message
   //plantSubCategories!: IplantSubCategories[]; 
-  plantSubCategories: any = []; 
-
+  public plantSubCategories: any;
+  test: string = 'HG here';
+  
 //create a function to get the id from the route/url
   constructor(private route: ActivatedRoute, private plantCategoriesService: PlantCategoriesService){
 
@@ -25,17 +27,23 @@ export class SpecifcPlantsInCategoryComponent {
       let plant_category_id = params.get('category_id');
       console.log('this is the plant category id ', plant_category_id);
       
+      
       if(plant_category_id){
           this.plantCategoriesService.getPlantCategoriesById(plant_category_id).subscribe((result:any) => {
             //this.plantSubCategories = [result]; //cast result as array object
             
             this.plantSubCategories = result.plants;  
+            
             console.log('HG here === ', this.plantSubCategories);
             console.log(typeof(this.plantSubCategories))
-         
+
           })
+          
        }
     })   
   }
 }
 
+/**
+ * name
+ */

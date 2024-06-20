@@ -6,7 +6,7 @@
       <!-- <form #plantSubCategories="ngForm"> -->
 
       <!-- convert [object Object] to array by converting to json -->
-      {{ plantSubCategories.value | json }}
+      <!-- {{ plantSubCategories | json }} -->
     
       
      <!-- {{ plantSubCategory.value | json }} -->
@@ -28,15 +28,16 @@
                   <!-- <a [routerLink]="['/specific_plants_in_category', plantSubCategory.plant_category_ID]">
                     <button>{{ plantSubCategory.plant_category_name }}</button></a> -->
 
-                  <button>{{plantSubCategory.plant_name }}</button>
-
+                  <!-- <button>{{plantSubCategory.plant_name }}</button> -->
+                  <!-- <a [routerLink]="['/specific_plants_in_category', plantCategory.plant_category_ID]"></a> -->
+                  <a [routerLink]="['selected_plant_details', plantSubCategory.plant_id]">
+                    <button>{{ plantSubCategory.plant_name }}</button></a> 
                   
 
+                    
                 </div>
                
             </div> 
         </div>
       </div>
     </div>
-
-     <!-- ERROR Error: NG02200: Cannot find a differ supporting object '[object Object]' of type 'object'. NgFor only supports binding to Iterables, such as Arrays. Did you mean to use the keyvalue pipe? Find more at https://angular.io/errors/NG02200 -->
