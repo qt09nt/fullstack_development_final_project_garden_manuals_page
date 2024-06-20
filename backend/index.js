@@ -161,8 +161,8 @@ app.get('/plant_info/:id', async (request, response) => {
             return response.status(500).json("Plant id not found");
         }
 
-        response.status(200).json(
-            plant_info:{} result,
+        response.status(200).json({
+            plant_info: result,
             
         });
     } catch (error) {
