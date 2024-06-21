@@ -10,7 +10,7 @@ export interface IplantSubCategories {
     sunlight: string;
     spacing: string;
     soil: string;
-    optimal_time_to_plant: string;
+    optimal_time_plant_to_plant: string;
     video_tutorial_link: string;
     how_to_plant: string;
     how_to_harvest: string;

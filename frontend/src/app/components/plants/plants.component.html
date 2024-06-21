@@ -11,17 +11,22 @@
     </tr>
 </table> -->
 
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <!-- <button class="myButton btn btn-success me-md-2" type="button">Sign Up</button> -->
-  <button class="myButton btn btn-success" type="button" routerLink="login">Log In</button>
-  
-  <button class="myButton btn btn-success me-md-2" type="button" routerLink="sign_up">Sign Up</button>
-  <!-- <button class="myButton btn btn-success" type="button">Sign In</button> -->
-</div>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand"></a>
+    <!-- <form class="d-flex" #search="ngForm"> -->
+      <input class="form-control me-2" type="text" placeholder="Search by plant" aria-label="Search" [(ngModel)]="searchText" >
+      <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
+      <button class="btn btn-outline-success" type="submit" (click)="clear()">Clear</button>
+    <!-- </form> -->
+  </div>
+</nav>
+
+
 
 <div class="container">
   <div class="row">
-    <div class="col-4" *ngFor="let plantCategory of plantCategories">
+    <div class="col-4" *ngFor="let plantCategory of filteredPlants">
           <div class="card">
             <img src="../assets/images/vegetables.jpeg" alt="Vegetables" class="card-img-top">
 

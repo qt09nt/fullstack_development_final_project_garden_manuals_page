@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { OnePlantComponent } from './components/one-plant/one-plant.component';
+import { SafePipe } from 'safe-pipe';
 
 // import { FormGroup } from '@angular/forms';
 
@@ -41,6 +42,7 @@ import { OnePlantComponent } from './components/one-plant/one-plant.component';
     HttpClientModule,
     FormsModule,      //angular template forms
     ReactiveFormsModule,
+    SafePipe,
   ],
   
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

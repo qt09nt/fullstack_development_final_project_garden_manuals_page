@@ -1,14 +1,39 @@
 <div class="col-4" *ngFor="let plant_detail of plant_details">
-        
+    <body>
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; background-color: lightgreen; margin: 0 auto;">
+        <div>
+          
+           
+    
+    <h1>How to plant {{plant_detail.plant_name}}</h1>
 
-    <p>{{plant_detail.plant_name}}</p>
-    <p>{{plant_detail.water}}</p>
-    <p>{{plant_detail.sunlight}}</p>
-    <p>{{plant_detail.spacing}}</p>
-    <p>{{plant_detail.soil}}</p>
-    <p>{{plant_detail.optimal_time_to_plant}}</p>
-    <p>{{plant_detail.video_tutorial_link}}</p>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Water</th>
+            <th scope="col">sunlight</th>
+            <th scope="col">Spacing</th>
+            <th scope="col">Soil</th>
+            <th scope="col">Optimal Time to Plant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{plant_detail.water}}</th>
+            <td>{{plant_detail.sunlight}}</td>
+            <td>{{plant_detail.spacing}}</td>
+            <td>{{plant_detail.soil}}</td>
+            <td>{{plant_detail.optimal_time_plant_to_plant}}</td>
+          </tr>
+        </tbody>
+      </table>
+   
+      <iframe width="560" height="315" [src]="plant_detail.video_tutorial_link | safe:'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+   
+      <h3> How to Plant </h3>
     <p>{{plant_detail.how_to_plant}}</p>
     
+    </div>
+<body>
 
-</div>
+    
