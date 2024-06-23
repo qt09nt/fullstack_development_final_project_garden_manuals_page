@@ -1,6 +1,6 @@
 <div class="col-4" *ngFor="let plant_detail of plant_details">
     <body>
-    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; background-color: lightgreen; margin: 0 auto;">
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; background-color: rgb(138, 252, 138); margin: 0 auto;">
         <div>
           
            
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row">{{plant_detail.water}}</th>
+            <td>{{plant_detail.water}}</td>
             <td>{{plant_detail.sunlight}}</td>
             <td>{{plant_detail.spacing}}</td>
             <td>{{plant_detail.soil}}</td>
@@ -30,9 +30,11 @@
    
       <iframe width="560" height="315" [src]="plant_detail.video_tutorial_link | safe:'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
    
+      <div class = "planting_text">
       <h3> How to Plant </h3>
-    <p>{{plant_detail.how_to_plant}}</p>
-    
+      
+        <p>{{plant_detail.how_to_plant}}</p>
+      </div>
     </div>
 <body>
 

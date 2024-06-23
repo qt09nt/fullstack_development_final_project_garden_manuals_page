@@ -11,18 +11,24 @@
     </tr>
 </table> -->
 
+
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand"></a>
     <!-- <form class="d-flex" #search="ngForm"> -->
-      <input class="form-control me-2" type="text" placeholder="Search by plant" aria-label="Search" [(ngModel)]="searchText" >
-      <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
-      <button class="btn btn-outline-success" type="submit" (click)="clear()">Clear</button>
+      <input class="form-control me-2 w-25 ms-auto" type="text" placeholder="Search by plant category" aria-label="Search" [(ngModel)]="searchText" >
+      <button class="btn btn-outline-success" type="submit" (click)="search()" float-end>Search</button>
+      <button class="btn btn-outline-success" type="submit" (click)="clear()" float-end>Clear</button>
+      <ng-container *ngIf="( filteredPlants) as result">
+
+        <div *ngFor="let x of result; let i = index"> </div>
+      
+        <p *ngIf="result.length === 0">No Result</p>  
+      
+      </ng-container>
     <!-- </form> -->
   </div>
 </nav>
-
-
 
 <div class="container">
   <div class="row">
@@ -32,7 +38,7 @@
 
             <div class="card-body">
                 <h5 class="card-title">{{ plantCategory.plant_category_name }}</h5>
-                <p class="card-text"> {{plantCategory.plant_category_ID}}</p> 
+                <p class="card-text">plant category ID: {{plantCategory.plant_category_ID}}</p> 
                
                 <!-- (click)="getPlantCategoriesById(plantCategory.plant_category_ID) -->
                 <!-- this will make a new URL for the plant category clicked -->
