@@ -34,6 +34,7 @@ export class PlantsComponent {
       }
     } else {
       this.filteredPlants = this.plantCategories;
+      console.log(this.filteredPlants);
     }
   }
 
