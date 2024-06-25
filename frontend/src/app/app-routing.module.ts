@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveSignupComponent } from './reactive-signup/reactive-signup.component';
 import { UserComponent } from './user/user.component';
 import { OnePlantComponent } from './components/one-plant/one-plant.component';
+import { FavouritesComponent } from './favourites/favourites.component';
 // import { NotfoundComponentComponent } from './components/notfound-component/notfound-component.component';
 
 
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'home/users/:id',
      component: UserComponent
+
+  },
+  {
+    path: 'home/users/:id/favourites',
+     component: FavouritesComponent
 
   },
   {

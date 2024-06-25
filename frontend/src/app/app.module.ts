@@ -19,6 +19,7 @@ import { UserComponent } from './user/user.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { OnePlantComponent } from './components/one-plant/one-plant.component';
 import { SafePipe } from 'safe-pipe';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 // import { FormGroup } from '@angular/forms';
 
@@ -34,6 +35,7 @@ import { SafePipe } from 'safe-pipe';
     ReactiveSignupComponent,
     UserComponent,
     OnePlantComponent,
+    FavouritesComponent,
 
   ],
   imports: [
