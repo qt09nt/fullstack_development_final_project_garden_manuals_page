@@ -1,3 +1,7 @@
+/* this adds spacing at the bottom of the cards */
+.card{
+  margin-bottom: 3rem;
+}
 /* .active(
   color: olive;
 ) */
