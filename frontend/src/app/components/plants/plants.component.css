@@ -2,6 +2,12 @@
 .card{
   margin-bottom: 3rem;
 }
+
+.category_picture{
+  width: 355px;
+  height: 250px;
+}
+
 /* .active(
   color: olive;
 ) */
