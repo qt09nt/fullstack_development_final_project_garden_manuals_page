@@ -9,12 +9,6 @@ CREATE TABLE `gardening_manuals`.`users` (
 	 PRIMARY KEY  (`user_id`),
 	 CONSTRAINT UNIQUE(`user_id`, `username`, `password`) 
 );
-	
-INSERT INTO `gardening_manuals`.`users` VALUES 
-	(12345, 'sriley@robogarden.ca', 'testpass89334', 'sriley'),
-	(12346, 'glliala@robogarden.ca', 'wieruwoeirue', 'glliala'),
-	(12347, 'rbenet@robogarden.ca', 'weroewreq343', 'rbenet'),
-	(12348, 'morsharshy@robogarden.ca', '23oq2u9ue', 'morshashy');
 
 ALTER TABLE gardening_manuals.users 
 	ADD deleted_or_not INT NOT NULL;
